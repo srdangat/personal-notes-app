@@ -20,6 +20,6 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ vars.DOCKERHUB_USER }}/personal-notes-app:${{ github.ref_name }}
-            ${{ vars.DOCKERHUB_USER }}/personal-notes-app:latest
-            ${{ vars.DOCKERHUB_USER }}/personal-notes-app:${{ github.sha}}
+            ${{ vars.DOCKERHUB_USERNAME  }}/personal-notes-app:${{ github.ref_name }}
+            ${{ vars.DOCKERHUB_USERNAME  }}/personal-notes-app:latest
+            ${{ vars.DOCKERHUB_USERNAME  }}/personal-notes-app:${{ github.sha}}
