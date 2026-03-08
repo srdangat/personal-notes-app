@@ -1,8 +1,12 @@
 name: Deploy personal notes app
 on:
-  workflow_dispatch:
+  workflow_run:
+    workflows: ["Docker Build & Push"]
+    types: [completed]
+    branches: [main]
 jobs:
   deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     env:
       DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
       DOCKER_TAG: ${{ github.sha }}
