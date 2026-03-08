@@ -93,6 +93,7 @@ def delete_note(note_id):
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    host = os.environ.get('FLASK_RUN_HOST', 'localhost')
+    host = os.environ.get('FLASK_RUN_HOST', '0.0.0.0')
     debug = os.environ.get('FLASK_DEBUG', '0') == '1'
     app.run(host=host, port=5000, debug=debug)
+
