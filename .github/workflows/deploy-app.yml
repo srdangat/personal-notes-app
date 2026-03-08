@@ -12,4 +12,4 @@ jobs:
       - name: Setup Docker Compose
         uses: docker/setup-compose-action@v2
       - name: Deploy with Docker Compose
-        run: docker compose up -d
+        run: docker compose down && docker compose up -d --build --force-recreate --pull always
