@@ -1,0 +1,15 @@
+name: Deploy personal notes app
+on:
+  workflow_dispatch:
+jobs:
+  deploy:
+    env:
+      DOCKER_USERNAME: ${{ vars.DOCKERHUB.USERNAME }}
+    runs-on: self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Docker Compose
+        uses: docker/setup-compose-action@v2
+      - name: Deploy with Docker Compose
+        run: docker compose up -d
