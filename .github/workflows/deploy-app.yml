@@ -5,6 +5,7 @@ jobs:
   deploy:
     env:
       DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
+      DOCKER_TAG: ${{ github.sha }}
     runs-on: self-hosted
     steps:
       - name: Checkout code
