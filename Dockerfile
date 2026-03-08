@@ -19,8 +19,4 @@ USER appuser
 EXPOSE 5000
 
 # Start the Flask web server
-CMD ["python", "app.py"]
-
-
-
-
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
