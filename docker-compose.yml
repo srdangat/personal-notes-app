@@ -22,7 +22,7 @@ services:
       tier: "database"
 
   app:
-    image: sanketdangat11/notes-app:v1.0                         
+    image: ${DOCKERHUB_USERNAME}/personal-notes-app:latest                        
     container_name: notes_app
     ports:
       - "5000:5000"                  
@@ -47,3 +47,4 @@ volumes:
 networks:
   notes_network:
     driver: bridge
+
