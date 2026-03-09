@@ -16,7 +16,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Trivy scanner
-        uses: aquasecurity/trivy-action@v1
+        uses: aquasecurity/trivy-action@v0.35.0
         with:
           severity: 'CRITICAL,HIGH'  # Only report high and critical vulnerabilities
           exit-code: '1'  # Fail the workflow if vulnerabilities are found
