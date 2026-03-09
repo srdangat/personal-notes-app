@@ -1,0 +1,22 @@
+# triviy image scanner for CVEs
+name: Image Scanner
+
+on:
+  workflow_call:
+
+jobs:
+  image-scanner:
+    runs-on: ubuntu-latest  
+
+    steps:
+      - name: Login to DockerHub
+        uses: docker/login-action@v3 
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }} 
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Trivy scanner
+        uses: aquasecurity/trivy-action@0.33.1
+        with:
+          severity: 'CRITICAL,HIGH'  # Only report high and critical vulnerabilities
+          exit-code: '1'  # Fail the workflow if vulnerabilities are found
