@@ -20,6 +20,6 @@ jobs:
         with:
           image-ref: ${{ vars.DOCKERHUB_USERNAME }}/personal-notes-app:${{ github.sha }}
           severity: 'CRITICAL,HIGH' # Only report High and critical vulnerabilities
-          exit-code: 0
+          exit-code: 1
           # ignore-unfixed: true
           ignorefile: ${{ github.workspace }}/.trivyignore
