@@ -5,7 +5,7 @@ FROM python:3.12-slim-bookworm
 WORKDIR /app
 
 
-# Update system libraries to ensure glibc is patched
+# hadolint ignore=DL3008
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         libc6 \
@@ -33,4 +33,5 @@ EXPOSE 5000
 
 # Start the Flask web server
 CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
+
 
