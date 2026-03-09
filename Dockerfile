@@ -1,13 +1,17 @@
-# Use the official Python 3.12 slim image as the base
-FROM python:3.12-slim
+# Use the official Python 3.12-slim-bookworm slim image as the base
+FROM python:3.12-slim-bookworm
 
 # Set the working directory inside the container
 WORKDIR /app
 
 
-# Update system libraries to fix CVEs
+# Update system libraries to ensure glibc is patched
 RUN apt-get update && \
-    apt-get upgrade -y libc6 libc-bin && \
+    apt-get install -y --no-install-recommends \
+        libc6 \
+        libc-bin \
+        build-essential \
+        curl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -29,3 +33,4 @@ EXPOSE 5000
 
 # Start the Flask web server
 CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
+
