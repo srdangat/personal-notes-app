@@ -37,11 +37,15 @@ jobs:
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           script: |
              echo "Starting deployment"
-              export DOCKERHUB_USER=${{ vars.DOCKERHUB_USERNAME }}
-              export DOCKER_TAG=${{ github.sha }}
-              echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "$DOCKERHUB_USER" --password-stdin
-              cd ~/app || exit 1
-              docker compose down
-              docker compose pull
-              docker compose up -d --build --force-recreate
-              echo "Deployment successful"
+             export POSTGRES_DB=${{ secrets.POSTGRES_DB }}
+             export POSTGRES_USER=${{ secrets.POSTGRES_USER }}
+             export POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+             export SECRET_KEY=${{ secrets.SECRET_KEY }}
+             export DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
+             export DOCKER_TAG=${{ github.sha }}
+             echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "$DOCKERHUB_USER" --password-stdin
+             cd ~/app || exit 1
+             docker compose down
+             docker compose pull
+             docker compose up -d --build --force-recreate
+             echo "Deployment successful"
