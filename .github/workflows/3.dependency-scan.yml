@@ -18,8 +18,8 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt  # Install project dependencies
 
-      - name: fix dependencies
-        run: pip-audit --fix
+      # - name: fix dependencies
+      #   run: pip-audit --fix
 
       - name: Run dependency audit
         run: pip-audit  # Check dependencies for known security vulnerabilities
