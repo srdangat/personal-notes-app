@@ -19,7 +19,7 @@ jobs:
         uses: aquasecurity/trivy-action@0.35.0
         with:
           image-ref: ${{ vars.DOCKERHUB_USERNAME }}/personal-notes-app:${{ github.sha }}
-          severity: 'CRITICAL,HIGH' # Only report high and critical vulnerabilities
+          severity: 'CRITICAL,HIGH' # Only report High and critical vulnerabilities
           exit-code: 0
           # ignore-unfixed: true
           ignorefile: ${{ github.workspace }}/.trivyignore
