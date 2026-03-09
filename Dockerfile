@@ -15,8 +15,11 @@ COPY . .
 RUN useradd -m appuser && chown -R appuser /app
 USER appuser
 
+ENV PYTHONUNBUFFERED=1
+
 # Document the port
 EXPOSE 5000
 
 # Start the Flask web server
 CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
+
