@@ -123,7 +123,8 @@ def delete_note(note_id):
 
 
 if __name__ == '__main__':
-    host = os.environ.get('FLASK_RUN_HOST', '0.0.0.0')
+    # Bind all interfaces intentionally for Docker; suppress B104 warning
+    host = os.environ.get('FLASK_RUN_HOST', '0.0.0.0')  # nosec B104
     debug = os.environ.get('FLASK_DEBUG', '0') == '1'
 
     app.run(
@@ -131,3 +132,4 @@ if __name__ == '__main__':
         port=5000,
         debug=debug
     )
+
