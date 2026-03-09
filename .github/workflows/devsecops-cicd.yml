@@ -6,32 +6,32 @@ on:
 
 jobs:
     # CI with security scanning
-    code-quality:
+    code-quality-check:
         uses: ./.github/workflows/1.code-quality.yml
         
-    secrets-scan:
+    secret-scan:
         uses: ./.github/workflows/2.secrets-scan.yml
         secrets: inherit
         
-    dependency-scan:
+    dependency-vulnerability-scan:
         uses: ./.github/workflows/3.dependency-scan.yml
     
-    docker-scan:
+    dockerfile-lint:
         uses: ./.github/workflows/4.docker-lint.yml
 
   # Build after security scanning done
-    build:
-       needs: [code-quality,secrets-scan,dependency-scan,docker-scan]
+    docker-build-and-push:
+       needs: [code-quality-check, secret-scan, dependency-vulnerability-scan, dockerfile-lint]
        uses: ./.github/workflows/docker-build-push.yml
        secrets: inherit
 
-    trivy:
-      needs: [build]
+    container-image-scan-trivy:
+      needs: [docker-build-and-push]
       uses: ./.github/workflows/images-scan.yml
       secrets: inherit
 
     # CD : Deploy to Server
-    deploy:
-        needs: [trivy]
+    deploy-to-server:
+        needs: [container-image-scan-trivy]
         uses: ./.github/workflows/deploy-to-server.yml
         secrets: inherit
