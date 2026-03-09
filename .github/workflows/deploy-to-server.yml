@@ -16,6 +16,8 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           script: |
+            sudo apt-get update && sudo apt-get install docker.io docker-compose-v2 -y
+            sudo usermod -aG docker $USER
             mkdir -p app
             
       - name: Copy docker-compose file
@@ -26,3 +28,20 @@ jobs:
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           source: docker-compose.yml
           target: ~/app
+          
+      - name: SSH to server & run the app
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+          script: |
+             echo "Starting deployment"
+              export DOCKERHUB_USER=${{ vars.DOCKERHUB_USERNAME }}
+              export DOCKER_TAG=${{ github.sha }}
+              echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "$DOCKERHUB_USER" --password-stdin
+              cd ~/app || exit 1
+              docker compose down
+              docker compose pull
+              docker compose up -d --build --force-recreate
+              echo "Deployment successful"
