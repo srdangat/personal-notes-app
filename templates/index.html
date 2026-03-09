@@ -13,56 +13,21 @@
     </a>
 </div>
 
-<!-- CI/CD Pipeline Steps -->
-<div class="pipeline-steps">
-    <h2>CI/CD Pipeline Progress</h2>
-    <ol class="steps-list">
-        <li class="step completed">✅ Code Quality Check</li>
-        <li class="step completed">✅ Docker Build and Push</li>
-        <li class="step completed">✅ Container Image Scan</li>
-        <li class="step completed">✅ Deploy to Server</li>
-    </ol>
+<!-- DevSecOps CI/CD Status -->
+<div class="cicd-status">
+    <h2>✅ DevSecOps CI/CD Pipeline Completed</h2>
 </div>
 
 <style>
-.pipeline-steps {
+.cicd-status {
     margin: 2em 0;
     padding: 1em;
     background: #1e1e1e;
-    color: #d4d4d4;
+    color: #4caf50;
     border-radius: 8px;
     font-family: Arial, sans-serif;
-}
-
-.pipeline-steps h2 {
-    margin-bottom: 0.5em;
+    text-align: center;
     font-weight: 600;
-    color: #61dafb;
-}
-
-.steps-list {
-    list-style: none;
-    display: flex;
-    gap: 2em;
-    padding-left: 0;
-}
-
-.step {
-    padding: 0.5em 1em;
-    border-radius: 4px;
-    background: #2d2d2d;
-    font-weight: 500;
-    user-select: none;
-    display: flex;
-    align-items: center;
-    gap: 0.5em;
-    color: #888;
-}
-
-.step.completed {
-    color: #4caf50; /* green */
-    background: #26392f;
-    font-weight: 700;
 }
 </style>
 
