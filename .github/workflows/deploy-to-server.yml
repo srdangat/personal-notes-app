@@ -45,7 +45,7 @@ jobs:
              export DOCKER_TAG=${{ github.sha }}
              echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "$DOCKERHUB_USER" --password-stdin
              cd ~/app || exit 1
-             # docker compose down
+             docker compose down
              docker compose pull
              docker compose up -d --build --force-recreate
              echo "Deployment successful"
