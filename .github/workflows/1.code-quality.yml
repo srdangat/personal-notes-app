@@ -30,4 +30,4 @@ jobs:
         run: flake8 app.py # Runs Flake8 to check code style
 
       - name: Run SAST (Security Analysis)
-        run: bandit -r app.py  -lll # Runs Bandit for static security analysis
+        run: bandit -r app.py # Runs Bandit for static security analysis
