@@ -1,0 +1,18 @@
+# Scan ths Dockerfile for issues & common vul.and exposure
+name: Docker Lint
+
+on:
+  workflow_call:
+
+jobs:
+  validate-dockerfile:
+    runs-on: ubuntu-latest  
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 
+
+      - name: Validate Dockerfile
+        uses: hadolint/hadolint-action@v3.1.0  # Run Hadolint to lint the Dockerfile
+        with:
+          dockerfile: Dockerfile  # Specify the Dockerfile to scan
