@@ -4,6 +4,13 @@ FROM python:3.12-slim
 # Set the working directory inside the container
 WORKDIR /app
 
+
+# Update system libraries to fix CVEs
+RUN apt-get update && \
+    apt-get upgrade -y libc6 libc-bin && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 # Install dependencies directly
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
@@ -22,4 +29,3 @@ EXPOSE 5000
 
 # Start the Flask web server
 CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
-
