@@ -10,7 +10,12 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4 
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+         python-version: 3.12
 
       - name: Install pip-audit
         run: pip install pip-audit  # Install pip-audit for dependency vulnerability scanning
