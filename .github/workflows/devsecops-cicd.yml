@@ -1,7 +1,8 @@
-name: Devsecops end to end pipline
+name: Devsecops end to end pipeline
 
 on:
-  workflow_dispatch:
+  push: 
+   branches: [main]
 
 jobs:
     code-quality:
