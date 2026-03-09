@@ -13,92 +13,205 @@
     </a>
 </div>
 
-<!-- DevSecOps CI/CD Status -->
-<div class="cicd-status">
-    <h2>✅ DevSecOps CI/CD Pipeline Completed</h2>
+<!-- DevSecOps CI/CD Pipeline -->
+<div class="pipeline-container">
+
+    <h2 class="pipeline-title">🚀 DevSecOps CI/CD Pipeline Completed</h2>
+
+    <div class="pipeline">
+
+        <div class="pipeline-step">
+            <div class="circle">✔</div>
+            <span>Code Quality</span>
+        </div>
+
+        <div class="arrow">➜</div>
+
+        <div class="pipeline-step">
+            <div class="circle">✔</div>
+            <span>Secret Scan</span>
+        </div>
+
+        <div class="arrow">➜</div>
+
+        <div class="pipeline-step">
+            <div class="circle">✔</div>
+            <span>Dependency Scan</span>
+        </div>
+
+        <div class="arrow">➜</div>
+
+        <div class="pipeline-step">
+            <div class="circle">✔</div>
+            <span>Dockerfile Lint</span>
+        </div>
+
+        <div class="arrow">➜</div>
+
+        <div class="pipeline-step">
+            <div class="circle">✔</div>
+            <span>Docker Build & Push</span>
+        </div>
+
+        <div class="arrow">➜</div>
+
+        <div class="pipeline-step">
+            <div class="circle">✔</div>
+            <span>Trivy Scan</span>
+        </div>
+
+        <div class="arrow">➜</div>
+
+        <div class="pipeline-step">
+            <div class="circle">✔</div>
+            <span>Deploy</span>
+        </div>
+
+    </div>
 </div>
 
 <style>
-.cicd-status {
-    margin: 2em 0;
-    padding: 1em;
-    background: #1e1e1e;
-    color: #4caf50;
-    border-radius: 8px;
-    font-family: Arial, sans-serif;
-    text-align: center;
-    font-weight: 600;
+
+.pipeline-container{
+    margin:2em 0;
+    padding:1.5em;
+    background:#1e1e1e;
+    border-radius:10px;
+    text-align:center;
 }
+
+.pipeline-title{
+    color:#4caf50;
+    margin-bottom:1.5em;
+}
+
+.pipeline{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+}
+
+.pipeline-step{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    font-size:12px;
+    color:#ddd;
+}
+
+.circle{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:#26392f;
+    color:#4caf50;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    border:2px solid #4caf50;
+    margin-bottom:4px;
+}
+
+.arrow{
+    font-size:20px;
+    color:#888;
+}
+
 </style>
 
-<!-- ── Search Bar ── -->
+
+<!-- Search -->
 <form class="search-form" action="{{ url_for('index') }}" method="GET" role="search" id="search-form">
     <div class="search-wrapper">
         <span class="search-icon">🔍</span>
-        <input type="text" name="q" id="search-input" class="search-input" placeholder="Search your notes…"
-            value="{{ search_query }}" autocomplete="off" aria-label="Search notes">
+        <input type="text" name="q" id="search-input" class="search-input"
+               placeholder="Search your notes…" value="{{ search_query }}"
+               autocomplete="off" aria-label="Search notes">
         {% if search_query %}
-        <a href="{{ url_for('index') }}" class="search-clear" aria-label="Clear search">×</a>
+        <a href="{{ url_for('index') }}" class="search-clear">×</a>
         {% endif %}
     </div>
 </form>
 
-<!-- ── Notes Grid ── -->
+
 {% if notes %}
 {% if search_query %}
 <p class="results-label">
-    Found <strong>{{ notes|length }}</strong> result{{ 's' if notes|length != 1 }} for "<em>{{ search_query }}</em>"
+Found <strong>{{ notes|length }}</strong>
+result{{ 's' if notes|length != 1 }} for "<em>{{ search_query }}</em>"
 </p>
 {% endif %}
 
-<div class="notes-grid" id="notes-grid">
-    {% for note in notes %}
-    <article class="note-card" id="note-card-{{ note.id }}">
-        <div class="note-card__header">
-            <h2 class="note-card__title">
-                <a href="{{ url_for('view_note', note_id=note.id) }}" id="note-title-link-{{ note.id }}">
-                    {{ note.title }}
-                </a>
-            </h2>
-            <div class="note-card__actions">
-                <a href="{{ url_for('edit_note', note_id=note.id) }}" class="action-btn action-btn--edit"
-                    id="edit-btn-{{ note.id }}" aria-label="Edit note {{ note.title }}">✏️</a>
-                <form action="{{ url_for('delete_note', note_id=note.id) }}" method="POST" style="display:inline;"
-                    onsubmit="return confirm('Delete this note? This cannot be undone.');">
-                    <button type="submit" class="action-btn action-btn--delete" id="delete-btn-{{ note.id }}"
-                        aria-label="Delete note {{ note.title }}">🗑️</button>
-                </form>
-            </div>
-        </div>
+<div class="notes-grid">
 
-        <p class="note-card__preview">{{ note.preview() }}</p>
+{% for note in notes %}
+<article class="note-card">
 
-        <div class="note-card__footer">
-            <span class="note-meta">
-                📅 {{ note.created_at.strftime('%b %d, %Y') }}
-            </span>
-            <span class="note-meta note-meta--words">
-                {{ note.word_count() }} word{{ 's' if note.word_count() != 1 }}
-            </span>
-        </div>
-    </article>
-    {% endfor %}
+<div class="note-card__header">
+
+<h2 class="note-card__title">
+<a href="{{ url_for('view_note', note_id=note.id) }}">
+{{ note.title }}
+</a>
+</h2>
+
+<div class="note-card__actions">
+
+<a href="{{ url_for('edit_note', note_id=note.id) }}"
+class="action-btn action-btn--edit">✏️</a>
+
+<form action="{{ url_for('delete_note', note_id=note.id) }}"
+method="POST" style="display:inline;"
+onsubmit="return confirm('Delete this note?');">
+
+<button type="submit"
+class="action-btn action-btn--delete">🗑️</button>
+
+</form>
+
+</div>
+</div>
+
+<p class="note-card__preview">
+{{ note.preview() }}
+</p>
+
+<div class="note-card__footer">
+
+<span class="note-meta">
+📅 {{ note.created_at.strftime('%b %d, %Y') }}
+</span>
+
+<span class="note-meta note-meta--words">
+{{ note.word_count() }} word{{ 's' if note.word_count()!=1 }}
+</span>
+
+</div>
+</article>
+{% endfor %}
+
 </div>
 
 {% else %}
-<div class="empty-state" id="empty-state">
-    <div class="empty-state__icon">📭</div>
-    {% if search_query %}
-    <h2 class="empty-state__title">No notes found</h2>
-    <p class="empty-state__subtitle">Try a different search term or <a href="{{ url_for('index') }}">view all notes</a>.
-    </p>
-    {% else %}
-    <h2 class="empty-state__title">No notes yet</h2>
-    <p class="empty-state__subtitle">Start capturing your thoughts — create your first note!</p>
-    <a href="{{ url_for('add_note') }}" class="btn btn--primary" id="empty-add-note-btn">
-        + Create First Note
-    </a>
-    {% endif %}
+
+<div class="empty-state">
+
+<div class="empty-state__icon">📭</div>
+
+<h2>No notes yet</h2>
+
+<p>Start capturing your thoughts.</p>
+
+<a href="{{ url_for('add_note') }}"
+class="btn btn--primary">
++ Create First Note
+</a>
+
 </div>
+
 {% endif %}
+
 {% endblock %}
