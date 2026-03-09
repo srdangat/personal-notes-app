@@ -1,0 +1,2 @@
+# Temporarily ignore glibc integer overflow CVE-2026-0861 due to no fix yet
+CVE-2026-0861
