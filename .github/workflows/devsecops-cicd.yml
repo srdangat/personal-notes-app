@@ -1,8 +1,9 @@
 name: Devsecops end to end pipeline
 
 on:
-  push: 
-   branches: [main]
+  workflow_dispatch: 
+  # push: 
+  #  branches: [main]
 
 jobs:
     # CI with security scanning
